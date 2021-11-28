@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { Stage, Layer, Image } from 'react-konva';
 import useImage from 'use-image';
-import tanks_map from '../img/tanks_map.jpg';
+import tanks_map from '../img/tanks_map.jpeg';
 
 import handleWheelScale from '../tools/handleWheelScale';
 import { MapWrapper } from './TanksMap.styles';

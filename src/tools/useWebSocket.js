@@ -10,6 +10,7 @@ const useWebSocket = (dispatch) => {
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
+
             const tanks = data.filter((element) => element.entity_type === 'PlayerSession');
             const bullets = data.filter((element) => element.entity_type === 'Bullet');
             if (bullets.length > 0) {
@@ -23,6 +24,8 @@ const useWebSocket = (dispatch) => {
                     type: actionTypes.STORE_TANKS,
                     payload: tanks,
                 });
+            } else {
+                dispatch({ type: actionTypes.CLEAR_TANKS, payload: null });
             }
         };
 

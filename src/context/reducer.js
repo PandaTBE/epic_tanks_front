@@ -5,6 +5,7 @@ export const actionTypes = {
     STORE_DATA: 'STORE_DATA',
     STORE_BULLETS: 'STORE_BULLETS',
     CLEAR_BULLETS: 'CLEAR_BULLETS',
+    CLEAR_TANKS: 'CLEAR_TANKS',
 };
 
 // {
@@ -16,6 +17,13 @@ export const actionTypes = {
 //     "facing": "left"
 // }
 
+const clearTanks = (state, action) => {
+    return {
+        ...state,
+        tanks: {},
+    };
+};
+
 const clearBullets = (state, action) => {
     return {
         ...state,
@@ -25,6 +33,12 @@ const clearBullets = (state, action) => {
 
 const storeTanks = (state, action) => {
     const copy = cloneDeep(state.tanks);
+
+    Object.keys(copy).forEach((key) => {
+        const item = action.payload.find((element) => element.entity_id === +key);
+
+        if (!item) delete copy[key];
+    });
 
     action.payload.forEach((element) => {
         if (copy[element.entity_id]) {
@@ -61,7 +75,7 @@ const storeBullets = (state, action) => {
     const copy = cloneDeep(state.bullets);
 
     Object.keys(copy).forEach((key) => {
-        const item = action.payload.find((element) => element.entity_id === key);
+        const item = action.payload.find((element) => element.entity_id === +key);
         if (!item) delete copy[key];
     });
 
@@ -106,6 +120,9 @@ const reducer = (state, action) => {
 
         case actionTypes.CLEAR_BULLETS:
             return clearBullets(state, action);
+
+        case actionTypes.CLEAR_TANKS:
+            return clearTanks(state, action);
 
         default:
             break;
