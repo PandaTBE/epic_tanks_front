@@ -1,13 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Stage, Layer, Image } from 'react-konva';
 import useImage from 'use-image';
 import tanks_map from '../img/tanks_map.jpg';
+
 import handleWheelScale from '../tools/handleWheelScale';
 import { MapWrapper } from './TanksMap.styles';
 import fitStage from '../tools/fitStage';
+import Context from '../context/context';
+import SingleTank from './SingleTank';
 
 const TanksMap = () => {
-    const [image, status] = useImage(tanks_map);
+    const { state } = useContext(Context);
+    const [image] = useImage(tanks_map);
+
     const [scale, setScale] = useState({
         stageScale: 1,
         stageX: 0,
@@ -39,6 +44,8 @@ const TanksMap = () => {
         });
     };
 
+    const tanks = state.tanks.map((element) => <SingleTank key={element.entity_id} tank={element} />);
+
     return (
         <MapWrapper>
             <Stage
@@ -57,6 +64,7 @@ const TanksMap = () => {
                 <Layer id='imageLayer'>
                     <Image image={image} />
                 </Layer>
+                <Layer>{tanks}</Layer>
             </Stage>
         </MapWrapper>
     );
