@@ -90,8 +90,6 @@ const storeBullets = (state, action) => {
         }
     });
 
-    console.log(copy);
-
     return {
         ...state,
         bullets: copy,
