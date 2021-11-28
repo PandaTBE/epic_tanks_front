@@ -8,6 +8,7 @@ import { MapWrapper } from './TanksMap.styles';
 import fitStage from '../tools/fitStage';
 import Context from '../context/context';
 import SingleTank from './SingleTank';
+import SingleBullet from './SingleBullet';
 
 const TanksMap = () => {
     const { state } = useContext(Context);
@@ -44,7 +45,12 @@ const TanksMap = () => {
         });
     };
 
-    const tanks = state.tanks.map((element) => <SingleTank key={element.entity_id} tank={element} />);
+    const tanks = Object.keys(state.tanks).map((element) => (
+        <SingleTank key={state.tanks[element].entity_id} tank={state.tanks[element]} />
+    ));
+    const bullets = Object.keys(state.bullets).map((element) => (
+        <SingleBullet key={state.bullets[element].entity_id} bullet={state.bullets[element]} />
+    ));
 
     return (
         <MapWrapper>
@@ -64,6 +70,7 @@ const TanksMap = () => {
                 <Layer id='imageLayer'>
                     <Image image={image} />
                 </Layer>
+                <Layer>{bullets}</Layer>
                 <Layer>{tanks}</Layer>
             </Stage>
         </MapWrapper>

@@ -11,13 +11,19 @@ const useWebSocket = (dispatch) => {
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
             const tanks = data.filter((element) => element.entity_type === 'PlayerSession');
-            const bullets = data.filter((element) => element.entity_type === 'bullet');
-            console.log(tanks, bullets);
+            const bullets = data.filter((element) => element.entity_type === 'Bullet');
+            if (bullets.length > 0) {
+                dispatch({ type: actionTypes.STORE_BULLETS, payload: bullets });
+            } else {
+                dispatch({ type: actionTypes.CLEAR_BULLETS, payload: null });
+            }
 
-            dispatch({
-                type: actionTypes.STORE_TANKS,
-                payload: tanks,
-            });
+            if (tanks.length > 0) {
+                dispatch({
+                    type: actionTypes.STORE_TANKS,
+                    payload: tanks,
+                });
+            }
         };
 
         socket.onerror = (error) => {

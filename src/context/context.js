@@ -1,7 +1,8 @@
 import { createContext } from 'react';
 
 const Context = createContext({
-    tanks: [],
+    tanks: {},
+    bullets: {},
 });
 
 export default Context;

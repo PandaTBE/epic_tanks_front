@@ -1,17 +1,16 @@
-import { Group, Image } from 'react-konva';
-import tank_image from '../img/tank.png';
-import useImage from 'use-image';
 import { useEffect, useState } from 'react';
-import LabelObject from './LabelObject';
+import { Group, Image } from 'react-konva';
+import useImage from 'use-image';
+import bullet_image from '../img/bullet.png';
 
-const SingleTank = ({ tank }) => {
-    const [image] = useImage(tank_image);
+const SingleBullet = ({ bullet }) => {
+    const [image] = useImage(bullet_image);
     const [ref, setRef] = useState(null);
 
     useEffect(() => {
         if (ref) {
             let rotation = 0;
-            switch (tank.facing) {
+            switch (bullet.facing) {
                 case 'right':
                     rotation = 90;
                     break;
@@ -31,15 +30,15 @@ const SingleTank = ({ tank }) => {
                     break;
             }
             ref.to({
-                x: tank.x + (ref.width() || 0),
-                y: tank.y + (ref.height() || 0),
+                x: bullet.x + (ref.width() || 0),
+                y: bullet.y + (ref.height() || 0),
                 offsetX: (ref.width() || 0) / 2,
                 offsetY: (ref.height() || 0) / 2,
                 rotation,
-                duration: 0.3,
+                duration: 0.5,
             });
         }
-    }, [ref, tank]);
+    }, [ref, bullet]);
 
     return (
         <Group>
@@ -48,18 +47,11 @@ const SingleTank = ({ tank }) => {
                 image={image}
                 offsetX={(ref?.width() || 0) / 2}
                 offsetY={(ref?.height() || 0) / 2}
-                x={tank.prevState.x + (ref?.width() || 0)}
-                y={tank.prevState.y + (ref?.height() || 0)}
-            />
-            <LabelObject
-                x={tank.x + (ref?.width() || 0) + 20}
-                y={tank.y + (ref?.height() || 0) + 20}
-                prevX={tank.prevState.x + (ref?.width() || 0) + 20}
-                prevY={tank.prevState.y + (ref?.height() || 0) + 20}
-                text={tank.entity_name}
+                x={bullet.prevState.x + (ref?.width() || 0)}
+                y={bullet.prevState.y + (ref?.height() || 0)}
             />
         </Group>
     );
 };
 
-export default SingleTank;
+export default SingleBullet;
