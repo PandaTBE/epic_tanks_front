@@ -4,7 +4,7 @@ import useImage from 'use-image';
 import { useEffect, useState } from 'react';
 import LabelObject from './LabelObject';
 
-const SingleTank = ({ tank }) => {
+const SingleTank = ({ tank, scale }) => {
     const [image] = useImage(tank_image);
     const [ref, setRef] = useState(null);
 
@@ -57,6 +57,7 @@ const SingleTank = ({ tank }) => {
                 prevX={tank.prevState.x + (ref?.width() || 0) + 20}
                 prevY={tank.prevState.y + (ref?.height() || 0) + 20}
                 text={tank.entity_name}
+                scale={scale}
             />
         </Group>
     );

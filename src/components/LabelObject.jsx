@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Label, Tag, Text } from 'react-konva';
+import scaleTransform from '../tools/scaleTransform';
 
-const LabelObject = ({ x, y, text, prevX, prevY }) => {
+const LabelObject = ({ x, y, text, prevX, prevY, scale = 1 }) => {
     const ref = useRef();
     useEffect(() => {
         ref.current.to({
@@ -12,8 +13,8 @@ const LabelObject = ({ x, y, text, prevX, prevY }) => {
     }, [x, y, prevX, prevY]);
     return (
         <Label ref={ref} x={prevX} y={prevY} opacity={0.75}>
-            <Tag fill={'white'} />
-            <Text text={text} padding={5} fill={'black'} />
+            <Tag pointerWidth={scaleTransform(20, scale)} pointerHeight={scaleTransform(20, scale)} fill={'white'} />
+            <Text fontSize={scaleTransform(30, scale)} text={text} padding={scaleTransform(5, scale)} fill={'black'} />
         </Label>
     );
 };

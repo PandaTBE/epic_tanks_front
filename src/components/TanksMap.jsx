@@ -46,7 +46,7 @@ const TanksMap = () => {
     };
 
     const tanks = Object.keys(state.tanks).map((element) => (
-        <SingleTank key={state.tanks[element].entity_id} tank={state.tanks[element]} />
+        <SingleTank key={state.tanks[element].entity_id} tank={state.tanks[element]} scale={scale.stageScale} />
     ));
     const bullets = Object.keys(state.bullets).map((element) => (
         <SingleBullet key={state.bullets[element].entity_id} bullet={state.bullets[element]} />
