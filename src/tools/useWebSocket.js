@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
+import { host } from '../constants/host';
 import { actionTypes } from '../context/reducer';
 
 const useWebSocket = (dispatch) => {
     useEffect(() => {
-        const socket = new WebSocket('ws://34.71.168.206:9481');
+        const socket = new WebSocket(host.SOCKET);
         socket.onopen = () => {
             console.log('Connected');
         };
